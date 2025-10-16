@@ -1,0 +1,266 @@
+
+        /* ---------------------------------- */
+        /* 1. Global & Theme Setup (Mission Control - Dark/Neon) */
+        /* ---------------------------------- */
+        :root {
+            --bg-dark: #12121e;
+            --sidebar-dark: #1a1a2e;
+            --neon-blue: #00f0ff;
+            --neon-green: #39ff14;
+            --neon-red: #ff3131;
+            --text-light: #e0e0f0;
+            --glow-shadow: 0 0 8px var(--neon-blue);
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            display: flex;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* ---------------------------------- */
+        /* 2. Layout Structure */
+        /* ---------------------------------- */
+        .sidebar {
+            width: 250px;
+            background-color: var(--sidebar-dark);
+            padding: 20px;
+            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.5);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .main-content {
+            flex-grow: 1;
+            padding: 40px;
+            display: grid;
+            gap: 25px;
+            grid-template-columns: 2fr 1fr; /* Two main columns */
+        }
+        
+        /* Mobile adjustment: stack columns */
+        @media (max-width: 768px) {
+            body { flex-direction: column; }
+            .sidebar { width: 100%; height: auto; padding: 15px; }
+            .main-content { 
+                grid-template-columns: 1fr; /* Single column */
+                padding: 15px;
+            }
+            .dashboard-header { margin-top: 10px; }
+        }
+
+
+        .dashboard-header {
+            grid-column: 1 / -1;
+            border-bottom: 2px solid var(--neon-blue);
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            text-shadow: var(--glow-shadow);
+        }
+
+        /* ---------------------------------- */
+        /* 3. Card/Widget Styles */
+        /* ---------------------------------- */
+        .card {
+            background-color: var(--sidebar-dark);
+            padding: 20px;
+            border-radius: 10px;
+            border: 1px solid rgba(0, 240, 255, 0.3);
+            box-shadow: 0 0 15px rgba(0, 240, 255, 0.1);
+        }
+
+        .card h3 {
+            color: var(--neon-blue);
+            margin-top: 0;
+            border-bottom: 1px dashed rgba(255, 255, 255, 0.2);
+            padding-bottom: 10px;
+            text-transform: uppercase;
+        }
+
+        /* ---------------------------------- */
+        /* 4. Task List & Interaction */
+        /* ---------------------------------- */
+        .task-list {
+            list-style: none;
+            padding: 0;
+            min-height: 100px; /* Ensure space when empty */
+        }
+
+        .task-item {
+            display: flex;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px dotted rgba(255, 255, 255, 0.1);
+            transition: background-color 0.3s, opacity 0.3s;
+        }
+
+        .task-item:hover {
+            background-color: rgba(255, 255, 255, 0.05);
+        }
+
+        .task-item input[type="checkbox"] {
+            margin-right: 15px;
+            min-width: 24px; 
+            min-height: 24px; 
+            accent-color: var(--neon-green);
+            cursor: pointer;
+        }
+
+        .task-label {
+            flex-grow: 1;
+            cursor: pointer;
+        }
+
+        .task-time {
+            font-size: 0.9em;
+            color: var(--neon-blue);
+            font-style: italic;
+        }
+        
+        .completed .task-label {
+            text-decoration: line-through;
+            color: rgba(224, 224, 240, 0.5);
+        }
+        
+        .urgent-task {
+            animation: pulse-red 1.5s infinite alternate;
+        }
+
+        @keyframes pulse-red {
+            from { box-shadow: 0 0 5px var(--neon-red); }
+            to { box-shadow: 0 0 20px var(--neon-red); }
+        }
+
+        /* Add Task Form Styling */
+        #addTaskForm {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        #taskInput, #timeInput {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid var(--neon-blue);
+            background: #0d0d18;
+            color: var(--text-light);
+            border-radius: 5px;
+        }
+        #taskInput { flex: 2; } /* Give task name more space */
+
+        #addTaskBtn {
+            padding: 10px 15px;
+            background-color: var(--neon-green);
+            color: var(--bg-dark);
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+
+        #addTaskBtn:hover {
+            background-color: #2ee80f;
+        }
+
+        /* ---------------------------------- */
+        /* 5. Progress & Status Indicators */
+        /* ---------------------------------- */
+        .progress-bar-container {
+            height: 20px;
+            background-color: #333;
+            border-radius: 10px;
+            margin-top: 10px;
+            overflow: hidden;
+            box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.5);
+        }
+
+        #missionProgress {
+            height: 100%;
+            width: 0%; 
+            background-color: var(--neon-green);
+            transition: width 0.5s ease-in-out;
+            border-radius: 10px;
+            position: relative;
+        }
+
+        .flex-time-display {
+            font-size: 3em;
+            text-align: center;
+            color: var(--neon-green);
+            margin: 15px 0;
+            text-shadow: 0 0 15px var(--neon-green);
+        }
+        
+        .flex-time-label {
+            text-align: center;
+            color: var(--text-light);
+            font-size: 0.9em;
+            text-transform: uppercase;
+        }
+        
+        #debtTracker {
+            font-size: 1.5em; 
+            color: var(--neon-red); 
+            font-weight: bold;
+            display: inline-block;
+            transition: all 0.5s;
+        }
+
+        /* General Buttons */
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 10px;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.2s;
+        }
+
+        .btn-confirm {
+            background-color: var(--neon-blue);
+            color: var(--sidebar-dark);
+            box-shadow: 0 0 8px var(--neon-blue);
+        }
+        .btn-confirm:hover { background-color: #00d3e0; }
+
+        .btn-reset {
+            background-color: #444;
+            color: var(--text-light);
+            box-shadow: 0 0 5px #444;
+        }
+        .btn-reset:hover { background-color: #555; }
+
+
+        /* Simulated Pop-up */
+        .popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            background-color: var(--sidebar-dark);
+            border: 3px solid var(--neon-green);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 0 30px var(--neon-green);
+            z-index: 1000;
+            text-align: center;
+            transition: transform 0.3s ease-out;
+            width: 80%;
+            max-width: 400px;
+        }
+        
+        .popup.active {
+            transform: translate(-50%, -50%) scale(1);
+        }
+        .popup h2 { color: var(--neon-green); }
