@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mission Control: Database Edition</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <div class="sidebar" id="sidebar">
+        <div>
+            <h2 style="color: var(--neon-green); text-align: center;">MISSION CONTROL</h2>
+            <p style="text-align: center; font-size: 1.1em; color: var(--neon-blue);">
+                <i class="fas fa-user-shield"></i> TASK ADMIN
+            </p>
+            <hr style="border-color: rgba(255, 255, 255, 0.1);">
+            
+            <div class="card" style="margin-top: 20px;">
+                <h3>Status</h3>
+                <div class="flex-time-display" id="flexTimeDisplay">-- min</div>
+                <div class="flex-time-label">FLEX TIME AVAILABLE</div>
+                
+                <hr style="border-color: rgba(255, 255, 255, 0.1); margin: 20px 0;">
+
+                <p style="font-size: 1em; color: var(--text-light); text-align: center;">
+                    Screen Time Debt: 
+                    <span id="debtTracker" style="font-size: 1.5em; font-weight: bold;">0 min</span>
+                </p>
+                <button class="btn" style="background: var(--neon-red); color: var(--bg-dark);" onclick="deductOverage(15)">
+                    DEDUCT 15 min OVERAGE
+                </button>
+                <p style="font-size: 0.7em; color: rgba(255,255,255,0.6); margin-top: 5px; text-align: center;">
+                    *Saves instantly. Deducts from future reward.
+                </p>
+            </div>
+        </div>
+        
+        <button class="btn btn-confirm" onclick="requestConfirmation()">
+            REQUEST CONFIRMATION (+30 MIN REWARD)
+        </button>
+    </div>
+
+    <div class="main-content" id="mainContent">
+        <h1 class="dashboard-header">OPERATIONAL DASHBOARD</h1>
+
+        <div class="card" style="grid-row: 2 / span 2;">
+            <h3>Mission Objective: DAILY</h3>
+            <ul class="task-list" id="taskList">
+                <li style="text-align: center; opacity: 0.7;">Loading tasks...</li>
+            </ul>
+
+            <button class="btn btn-reset" onclick="resetTasks()">
+                <i class="fas fa-sync-alt"></i> Reset Completed Tasks
+            </button>
+
+            <hr style="border-color: rgba(255, 255, 255, 0.1); margin: 20px 0;">
+
+            <h3>Add New Task</h3>
+            <form id="addTaskForm">
+                <input type="text" id="taskInput" placeholder="Task Name (e.g., Make Bed)" required>
+                <input type="text" id="timeInput" placeholder="Time (e.g., 7:30 AM)">
+                <button type="submit" id="addTaskBtn">Add</button>
+            </form>
+        </div>
+
+        <div class="card">
+            <h3>Mission Progress</h3>
+            <div class="progress-bar-container">
+                <div id="missionProgress"></div>
+            </div>
+            <p style="text-align: center; margin-top: 10px;" id="progressText">0/0 Tasks Completed</p>
+        </div>
+
+        <div class="card">
+            <h3>User ID</h3>
+            <p style="word-break: break-all; font-size: 0.9em;" id="userIdDisplay">Loading...</p>
+            <p style="font-size: 0.7em; color: rgba(255,255,255,0.6); margin-top: 10px;">
+                Your unique ID used to save your data.
+            </p>
+        </div>
+    </div>
+
+    <div id="statusPopup" class="popup">
+        <h2 id="popupTitle"></h2>
+        <p id="popupMessage" style="font-size: 1.2em;"></p>
+        <button style="padding: 10px 20px; border-radius: 5px; margin-top: 20px; background: var(--neon-blue); color: var(--sidebar-dark); border: none; cursor: pointer; font-weight: bold;" onclick="hidePopup()">
+            DISMISS
+        </button>
+    </div>
+
+<script type="module" src="js/main.js"></script>
+
+</body>
+</html>
